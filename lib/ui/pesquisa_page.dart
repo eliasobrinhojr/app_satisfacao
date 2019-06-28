@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:app_satisfacao/dao/tipo_dao.dart';
 import 'package:app_satisfacao/model/tipo_model.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_satisfacao/dao/config_dao.dart';
 import 'package:app_satisfacao/model/avaliacao_model.dart';
@@ -32,6 +33,7 @@ class _PesquisaPageState extends State<PesquisaPage>
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
     _getConfig();
     _controller = AnimationController(vsync: this);
   }
@@ -60,12 +62,12 @@ class _PesquisaPageState extends State<PesquisaPage>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(
-            "Como você avalia nosso atendimento no $label ?",
+            "Como você avalia nosso atendimento\n no $label ?",
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 40.0, color: Color(0xff0E314A)),
           ),
           Container(
-            margin: const EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 0.0),
+            margin: const EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0.0),
             decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(color: Colors.grey),
@@ -73,7 +75,7 @@ class _PesquisaPageState extends State<PesquisaPage>
                     Radius.circular(5.0) //         <--- border radius here
                     )),
             width: 526.0,
-            height: 400.0,
+            height: 350.0,
             child: SingleChildScrollView(
               padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
               child: Column(

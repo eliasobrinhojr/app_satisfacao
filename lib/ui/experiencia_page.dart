@@ -2,6 +2,7 @@ import 'package:app_satisfacao/dao/config_dao.dart';
 import 'package:app_satisfacao/model/config_model.dart';
 import 'package:app_satisfacao/ui/concluido_page.dart';
 import 'package:app_satisfacao/model/avaliacao_model.dart';
+import 'package:app_satisfacao/model/tipo_model.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:app_satisfacao/utils/widgets_util.dart';
@@ -32,8 +33,7 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
 
   @override
   Widget build(BuildContext context) {
-
-  var label = cfgBean.itemAvaliado;
+    var label = cfgBean.itemAvaliado;
 
     return Scaffold(
       appBar: widUtil.getAppbar(),
@@ -61,10 +61,10 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                 } else {
                   List<dynamic> lista = json.decode(snapshot.data);
 
-                  List<String> listaStr = List<String>();
-                  for (var item in lista) {
-                    listaStr.add(item['descricao']);
-                  }
+//                  List<String> listaStr = List<String>();
+//                  for (var item in lista) {
+//                    listaStr.add(item.descricao);
+//                  }
 
                   return Center(
                       child: Column(
@@ -72,26 +72,25 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 0.0),
+                        padding: EdgeInsets.fromLTRB(32.0, 10.0, 32.0, 0.0),
                         child: Text(
-                          "O que ocasionou sua experiência negativa no $label ?",
+                          "O que ocasionou sua experiência negativa\n no $label ?",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 40.0,
+                            fontSize: 30.0,
                             color: Color(0xff0E314A),
                           ),
                         ),
                       ),
                       Container(
                         margin:
-                            const EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 0.0),
+                            const EdgeInsets.fromLTRB(250.0, 10.0, 250.0, 0.0),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(color: Colors.grey),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(5.0))),
-                        width: 526.0,
-                        height: 350.0,
+
                         child: SingleChildScrollView(
                           padding: EdgeInsets.all(10.0),
                           child: Form(
@@ -99,27 +98,7 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: <Widget>[
-                                RadioButtonGroup(
-                                  margin: EdgeInsets.all(20.0),
-                                  labelStyle: TextStyle(
-                                      fontSize: 20.0, wordSpacing: 10.0),
-                                  labels: listaStr,
-                                  onChange: (String label, int index) {
-                                    print('change');
-                                  },
-                                  onSelected: (String label) {
-                                    dynamic res = lista
-                                        .where((l) => l['descricao'] == label)
-                                        .toList();
-
-                                    avaliacaoBean.perfil = cfgBean.itemAvaliado;
-                                    avaliacaoBean.tipoAvaliacao =
-                                        res[0]['id_tipoavaliacao'];
-                                    avaliacaoBean.dtavaliacao =
-                                        new DateTime.now().toString();
-                                    avaliacaoBean.comentario = " ";
-                                  },
-                                ),
+                                getTextWidgets(lista),
                                 Divider(),
                                 Padding(
                                   padding: EdgeInsets.fromLTRB(
@@ -129,7 +108,7 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                                       borderRadius:
                                           new BorderRadius.circular(5.0),
                                     ),
-                                    height: 80.0,
+                                    height: 65.0,
                                     minWidth: 100.0,
                                     color: Color(0xff0E314A),
                                     textColor: Colors.white,
@@ -165,6 +144,57 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
             }
           }),
     );
+  }
+
+  Widget getTextWidgets(List<dynamic> list) {
+    return new Column(
+        children: list
+            .map((item) => new Container(
+          margin: EdgeInsets.all(10.0),
+                    width: 450.0,
+                    height: 60.0,
+                    decoration: new BoxDecoration(
+                      color: Colors.white,
+                      border: new Border.all(color: Color(0xff0E314A), width: 5.0),
+                      borderRadius: new BorderRadius.circular(10.0),
+                    ),
+                    child: MaterialButton(
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(5.0),
+                      ),
+                      minWidth: 200.0,
+                      color: Colors.white,
+                      textColor: Color(0xff0E314A),
+                      child: Text(
+                        item['descricao'],
+                        style: TextStyle(
+                            fontSize: 18.0, letterSpacing: 2.0), textAlign: TextAlign.center,
+                      ),
+                      onPressed: () {
+
+                        dynamic res = list
+                            .where((l) => l['descricao'] == item['descricao'])
+                            .toList();
+
+                        avaliacaoBean.perfil = cfgBean.itemAvaliado;
+                        avaliacaoBean.tipoAvaliacao =
+                        res[0]['id_tipoavaliacao'];
+                        avaliacaoBean.dtavaliacao =
+                            new DateTime.now().toString();
+                        avaliacaoBean.comentario = " ";
+
+                      },
+                      splashColor: Colors.black,
+                    ),
+                  ),
+                )
+            .toList());
+  }
+
+  getButtons(lista) {
+    for (var item in lista) {
+      print(item);
+    }
   }
 
   postRequestAvaliacao() async {

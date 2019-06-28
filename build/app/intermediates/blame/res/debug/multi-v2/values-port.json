@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/sys00/Documentos/mobile/curso_flutter/app_satisfacao/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-port/values-port.xml",
+            "outputFile": "/home/sys00/Documentos/mobile/app_satisfacao/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-port/values-port.xml",
             "map": [
                 {
                     "source": "/home/sys00/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/8f422a08f61c5c1adab078cb4c118afc/res/values-port/values-port.xml",
