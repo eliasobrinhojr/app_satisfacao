@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Jun 28 14:57:07 AMT 2019
+#Fri Jun 28 15:21:35 AMT 2019
 17.baseType=DIRECTORY
 4.path=flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
 8.set=ASSET
@@ -41,7 +41,7 @@ count=20
 14.set=ASSET
 2.base=/home/sys00/Documentos/mobile/app_satisfacao/build/app/intermediates/merged_assets/debug/mergeDebugAssets/out
 18.baseType=DIRECTORY
-1.path=flutter_assets/lib/assets/ic_logo_pmz.png
+1.path=flutter_assets/isolate_snapshot_data
 19.set=NATIVE_RESOURCE
 0.set=ASSET
 1.baseType=DIRECTORY
@@ -58,7 +58,7 @@ count=20
 3.base=/home/sys00/Documentos/mobile/app_satisfacao/build/app/intermediates/merged_assets/debug/mergeDebugAssets/out
 10.path=lib/x86/libflutter.so
 13.set=ASSET
-2.path=flutter_assets/isolate_snapshot_data
+2.path=flutter_assets/LICENSE
 9.baseType=DIRECTORY
 18.set=NATIVE_RESOURCE
 19.base=/home/sys00/Documentos/mobile/app_satisfacao/build/app/intermediates/transforms/mergeJniLibs/debug/0
@@ -69,7 +69,7 @@ count=20
 4.base=/home/sys00/Documentos/mobile/app_satisfacao/build/app/intermediates/merged_assets/debug/mergeDebugAssets/out
 11.path=flutter_assets/lib/assets/ic_appbar.png
 9.set=ASSET
-3.path=flutter_assets/LICENSE
+3.path=flutter_assets/lib/assets/ic_logo.png
 12.set=ASSET
 11.baseType=DIRECTORY
 0.baseType=DIRECTORY

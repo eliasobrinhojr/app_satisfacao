@@ -82,4 +82,4 @@ flutter:
 flutter_icons:
   android: true
   ios: true
-  image_path: "lib/assets/ic_logo_pmz.png"
+  image_path: "lib/assets/ic_logo.png"
