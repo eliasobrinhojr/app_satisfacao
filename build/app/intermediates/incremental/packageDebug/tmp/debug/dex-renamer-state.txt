@@ -1,0 +1,4 @@
+#Thu Jun 27 15:28:46 AMT 2019
+base.0=/home/sys00/Documentos/mobile/curso_flutter/app_satisfacao/build/app/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
