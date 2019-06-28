@@ -75,7 +75,7 @@ class _PesquisaPageState extends State<PesquisaPage>
                     Radius.circular(5.0) //         <--- border radius here
                     )),
             width: 526.0,
-            height: 350.0,
+            height: 320.0,
             child: SingleChildScrollView(
               padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
               child: Column(

@@ -2,24 +2,30 @@ import 'package:flutter/material.dart';
 
 class WidgetsUtil {
   Widget getAppbar() {
-    var assets = new AssetImage('lib/assets/ic_appbar.png');
-    var image = new Image(image: assets, width: 100.0, height: 100.0);
+    var assets = new AssetImage('lib/assets/ic_lojas.png');
+    var image = new Image(image: assets, width: 130.0, height: 130.0);
 
     return AppBar(
       title: Row(
         children: <Widget>[
-          new Container(
-            child: image,
+          Padding(
+            padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 0.0),
+            child: new Container(
+              child: image,
+            ),
           ),
-          Text(
-            "Pesquisa de Satisfação",
-          )
+          Padding(
+            padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 0.0),
+            child: Text(
+              "Pesquisa de Satisfação",
+            ),
+          ),
         ],
       ),
       backgroundColor: Color(0xff0E314A),
       centerTitle: false,
       bottom: PreferredSize(
-          preferredSize: Size(0.0, 0.0),
+          preferredSize: Size(10.0, 10.0),
           child: Container(
             decoration: BoxDecoration(
               border: Border(

@@ -25,6 +25,8 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
 
   AvaliacaoModel avaliacaoBean = AvaliacaoModel();
 
+  bool pressed = true;
+
   @override
   void initState() {
     super.initState();
@@ -44,102 +46,105 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
               case ConnectionState.waiting:
-                return Center(
-                  child: Text('Carregando Dados..',
-                      style:
-                          TextStyle(color: Color(0xff0E314A), fontSize: 25.0),
-                      textAlign: TextAlign.center),
-                );
+              // return new Container();
+//                return Center(
+//                  child: Text('Carregando Dados..',
+//                      style:
+//                      TextStyle(color: Color(0xff0E314A), fontSize: 25.0),
+//                      textAlign: TextAlign.center),
+//                );
               default:
                 if (snapshot.hasError) {
-                  return Center(
-                    child: Text('Erro ao Carregar Dados :(',
-                        style:
-                            TextStyle(color: Color(0xff0E314A), fontSize: 25.0),
-                        textAlign: TextAlign.center),
-                  );
+                  return new Container();
+//                  return Center(
+//                    child: Text(
+//                        'Erro ao Carregar Dados\n verificar {$cfgBean.ip}',
+//                        style:
+//                            TextStyle(color: Color(0xff0E314A), fontSize: 25.0),
+//                        textAlign: TextAlign.center),
+//                  );
                 } else {
-                  List<dynamic> lista = json.decode(snapshot.data);
+                  if (snapshot.data != null) {
+                    List<dynamic> lista = json.decode(snapshot.data);
 
-//                  List<String> listaStr = List<String>();
-//                  for (var item in lista) {
-//                    listaStr.add(item.descricao);
-//                  }
-
-                  return Center(
-                      child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(32.0, 10.0, 32.0, 0.0),
-                        child: Text(
-                          "O que ocasionou sua experiência negativa\n no $label ?",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 30.0,
-                            color: Color(0xff0E314A),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin:
-                            const EdgeInsets.fromLTRB(250.0, 10.0, 250.0, 0.0),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.grey),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5.0))),
-
-                        child: SingleChildScrollView(
-                          padding: EdgeInsets.all(10.0),
-                          child: Form(
-                            key: _formKey,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: <Widget>[
-                                getTextWidgets(lista),
-                                Divider(),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(
-                                      150.0, 10.0, 150.0, 0.0),
-                                  child: new MaterialButton(
-                                    shape: new RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(5.0),
-                                    ),
-                                    height: 65.0,
-                                    minWidth: 100.0,
-                                    color: Color(0xff0E314A),
-                                    textColor: Colors.white,
-                                    child: new Text(
-                                      "CONCLUIR",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20.0),
-                                    ),
-                                    onPressed: () {
-                                      if (avaliacaoBean.tipoAvaliacao != null) {
-                                        postRequestAvaliacao();
-
-                                        Route route = MaterialPageRoute(
-                                            builder: (context) =>
-                                                ConcluidoPage());
-                                        Navigator.pushReplacement(
-                                            context, route);
-                                      } else {
-                                        _ackAlert(context);
-                                      }
-                                    },
-                                    splashColor: Colors.black,
-                                  ),
-                                )
-                              ],
+                    return Center(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(32.0, 10.0, 32.0, 0.0),
+                          child: Text(
+                            "O que ocasionou sua experiência negativa\n no $label ?",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 30.0,
+                              color: Color(0xff0E314A),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ));
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(
+                              250.0, 10.0, 250.0, 0.0),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: Colors.grey),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5.0))),
+                          child: SingleChildScrollView(
+                            padding: EdgeInsets.all(10.0),
+                            child: Form(
+                              key: _formKey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: <Widget>[
+                                  getTextWidgets(lista),
+                                  Divider(),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        150.0, 10.0, 150.0, 0.0),
+                                    child: new MaterialButton(
+                                      shape: new RoundedRectangleBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(5.0),
+                                      ),
+                                      height: 65.0,
+                                      minWidth: 100.0,
+                                      color: Color(0xff0E314A),
+                                      textColor: Colors.white,
+                                      child: new Text(
+                                        "CONCLUIR",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20.0),
+                                      ),
+                                      onPressed: () {
+                                        if (avaliacaoBean.tipoAvaliacao !=
+                                            null) {
+                                          postRequestAvaliacao();
+
+                                          Route route = MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ConcluidoPage());
+                                          Navigator.pushReplacement(
+                                              context, route);
+                                        } else {
+                                          _ackAlert(context);
+                                        }
+                                      },
+                                      splashColor: Colors.black,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ));
+                  } else {
+                    return new Container();
+                  }
                 }
             }
           }),
@@ -149,28 +154,33 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
   Widget getTextWidgets(List<dynamic> list) {
     return new Column(
         children: list
-            .map((item) => new Container(
-          margin: EdgeInsets.all(10.0),
+            .map(
+              (item) => new Container(
+                    margin: EdgeInsets.all(10.0),
                     width: 450.0,
                     height: 60.0,
                     decoration: new BoxDecoration(
                       color: Colors.white,
-                      border: new Border.all(color: Color(0xff0E314A), width: 5.0),
-                      borderRadius: new BorderRadius.circular(10.0),
+                      border: new Border.all(
+                          color: Color(0xff0E314A), width: pressed ? 4.0 : 0.0),
+                      borderRadius: new BorderRadius.circular(5.0),
                     ),
                     child: MaterialButton(
                       shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(5.0),
                       ),
                       minWidth: 200.0,
-                      color: Colors.white,
-                      textColor: Color(0xff0E314A),
+                      color: pressed ? (Colors.white) : (Colors.green),
+                      textColor: pressed ? (Color(0xff0E314A)) : (Colors.white),
                       child: Text(
                         item['descricao'],
-                        style: TextStyle(
-                            fontSize: 18.0, letterSpacing: 2.0), textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 18.0, letterSpacing: 2.0),
+                        textAlign: TextAlign.center,
                       ),
                       onPressed: () {
+                        setState(() {
+                          pressed = !pressed;
+                        });
 
                         dynamic res = list
                             .where((l) => l['descricao'] == item['descricao'])
@@ -178,23 +188,16 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
 
                         avaliacaoBean.perfil = cfgBean.itemAvaliado;
                         avaliacaoBean.tipoAvaliacao =
-                        res[0]['id_tipoavaliacao'];
+                            res[0]['id_tipoavaliacao'];
                         avaliacaoBean.dtavaliacao =
                             new DateTime.now().toString();
                         avaliacaoBean.comentario = " ";
-
                       },
-                      splashColor: Colors.black,
+                      splashColor: Color(0xff2CA25F),
                     ),
                   ),
-                )
+            )
             .toList());
-  }
-
-  getButtons(lista) {
-    for (var item in lista) {
-      print(item);
-    }
   }
 
   postRequestAvaliacao() async {

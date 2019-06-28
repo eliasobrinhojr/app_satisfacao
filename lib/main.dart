@@ -11,7 +11,7 @@ void main() {
   var home;
 
   _cfgDao.getConfig().then((result) {
-
+    print(result);
     if (result == null) {
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       home = HomePage();

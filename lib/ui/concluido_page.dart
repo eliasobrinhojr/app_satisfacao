@@ -42,7 +42,7 @@ class _ConcluidoPageState extends State<ConcluidoPage> {
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.all(Radius.circular(5.0))),
             width: 526.0,
-            height: 340.0,
+            height: 320.0,
             child: SingleChildScrollView(
               child: Form(
                 key: _formKey,
