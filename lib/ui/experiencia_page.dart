@@ -187,8 +187,15 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                         print('item lista: $item');
 
                         setState(() {
-                          _item = item['id_tipoavaliacao'];
-                          pressed = !pressed;
+                          //_item = '';
+                          pressed = false;
+                        });
+
+                        Future.delayed(const Duration(milliseconds: 100), () {
+                          setState(() {
+                            _item = item['id_tipoavaliacao'];
+                            pressed = true;
+                          });
                         });
 
                         dynamic res = list
@@ -211,6 +218,7 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
   }
 
   postRequestAvaliacao() async {
+    print('postRequestAvaliacao();');
     final uri = "http://" +
         cfgBean.ip +
         "/service-satisfacao/index.php/satisfacaoAvaliacao/avaliacaoController/save";
