@@ -8,7 +8,6 @@ import 'package:app_satisfacao/model/tipo_model.dart';
 import 'package:app_satisfacao/ui/pesquisa_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:app_satisfacao/utils/widgets_util.dart';
@@ -22,14 +21,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ConfigDao _configDao = ConfigDao();
   TipoDao _tipoDao = TipoDao();
-
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController ipTextController = TextEditingController();
-
   ConfigModel _configBean = ConfigModel();
-
   WidgetsUtil widUtil = WidgetsUtil();
-
   ProgressDialog pr;
 
   @override
@@ -93,7 +88,8 @@ class _HomePageState extends State<HomePage> {
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                               labelText: "IP",
-                              labelStyle: TextStyle(color: Color(0xff0E314A), fontSize: 18.0)),
+                              labelStyle: TextStyle(
+                                  color: Color(0xff0E314A), fontSize: 18.0)),
                           textAlign: TextAlign.left,
                           style: TextStyle(
                               color: Color(0xff0E314A), fontSize: 15.0),
@@ -105,11 +101,11 @@ class _HomePageState extends State<HomePage> {
                               _configBean.ip = value;
                             }
                           }),
-
                       Row(
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 35.0, 0, 25.0),
+                            padding:
+                                const EdgeInsets.fromLTRB(20, 35.0, 0, 25.0),
                             child: Text(
                               'Item Avaliado',
                               style: TextStyle(
@@ -120,11 +116,13 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-
-
                       RadioButtonGroup(
                         labelStyle: TextStyle(fontSize: 18.0),
-                        labels: ["Balcão de Vendas", "Caixa", "Balcão de Entregas"],
+                        labels: [
+                          "Balcão de Vendas",
+                          "Caixa",
+                          "Balcão de Entregas"
+                        ],
                         onChange: (String label, int index) {
                           _configBean.itemAvaliado = label;
                         },
@@ -132,7 +130,6 @@ class _HomePageState extends State<HomePage> {
                           _configBean.itemAvaliado = label;
                         },
                       ),
-
                       Padding(
                         padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 50.0),
                         child: MaterialButton(

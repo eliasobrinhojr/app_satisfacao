@@ -185,11 +185,7 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                       ),
                       onPressed: () {
 
-                        print('selecionado: $_item');
-                        print('item lista: $item');
-
                         setState(() {
-                          //_item = '';
                           pressed = false;
                         });
 
