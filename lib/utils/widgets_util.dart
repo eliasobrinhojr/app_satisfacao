@@ -14,12 +14,27 @@ class WidgetsUtil {
               child: image,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 0.0),
-            child: Text(
-              "Pesquisa de Satisfação",
-            ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 0.0),
+                child: Text(
+                  "Pesquisa de Satisfação",
+                ),
+              ),
+              Padding(
+
+                padding: EdgeInsets.fromLTRB(10.0, 5.0, 0.0, 0.0),
+                child: Text(
+                  "Filial: 00 - Av. Silves, 885",
+                  style: TextStyle(fontSize: 15.0),
+                ),
+              ),
+            ],
           ),
+
         ],
       ),
       backgroundColor: Color(0xff0E314A),
@@ -32,6 +47,7 @@ class WidgetsUtil {
                 bottom: BorderSide(color: Color(0xffE14422), width: 3.0),
               ),
             ),
+
           )),
     );
   }

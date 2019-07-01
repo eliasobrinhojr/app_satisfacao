@@ -1,6 +1,7 @@
 import 'package:app_satisfacao/ui/pesquisa_page.dart';
 import 'package:flutter/material.dart';
 import 'package:app_satisfacao/utils/widgets_util.dart';
+import 'package:flutter/services.dart';
 
 class ConcluidoPage extends StatefulWidget {
   @override
@@ -11,6 +12,13 @@ class _ConcluidoPageState extends State<ConcluidoPage> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   WidgetsUtil widUtil = WidgetsUtil();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SystemChrome.setEnabledSystemUIOverlays([]);
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -9,6 +9,7 @@ import 'package:app_satisfacao/utils/widgets_util.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/services.dart';
 
 class ExperienciaPage extends StatefulWidget {
   @override
@@ -32,6 +33,7 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
   void initState() {
     super.initState();
     _getConfig();
+    SystemChrome.setEnabledSystemUIOverlays([]);
   }
 
   @override

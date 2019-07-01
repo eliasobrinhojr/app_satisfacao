@@ -36,6 +36,7 @@ class _PesquisaPageState extends State<PesquisaPage>
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
     _getConfig();
     _controller = AnimationController(vsync: this);
+    SystemChrome.setEnabledSystemUIOverlays([]);
   }
 
   @override

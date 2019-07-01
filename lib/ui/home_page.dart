@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _configBean.itemAvaliado = null;
     BackButtonInterceptor.add(myInterceptor);
+    SystemChrome.setEnabledSystemUIOverlays([]);
   }
 
   @override
