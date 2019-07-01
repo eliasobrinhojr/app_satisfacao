@@ -33,7 +33,7 @@ class _ConcluidoPageState extends State<ConcluidoPage> {
           Text(
             "O Grupo PMZ Agradece a \nsua participação. Até a próxima!",
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 40.0, color: Color(0xff0E314A)),
+            style: TextStyle(fontSize: 30.0, color: Color(0xff0E314A)),
           ),
           Container(
             margin: const EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 0.0),

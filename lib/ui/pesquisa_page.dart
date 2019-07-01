@@ -64,7 +64,7 @@ class _PesquisaPageState extends State<PesquisaPage>
           Text(
             "Como você avalia nosso atendimento\n no $label ?",
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 40.0, color: Color(0xff0E314A)),
+            style: TextStyle(fontSize: 30.0, color: Color(0xff0E314A)),
           ),
           Container(
             margin: const EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0.0),

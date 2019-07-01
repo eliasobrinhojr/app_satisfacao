@@ -25,7 +25,8 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
 
   AvaliacaoModel avaliacaoBean = AvaliacaoModel();
 
-  bool pressed = true;
+  bool pressed = false;
+  String _item = '';
 
   @override
   void initState() {
@@ -152,6 +153,9 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
   }
 
   Widget getTextWidgets(List<dynamic> list) {
+
+
+
     return new Column(
         children: list
             .map(
@@ -162,7 +166,7 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                     decoration: new BoxDecoration(
                       color: Colors.white,
                       border: new Border.all(
-                          color: Color(0xff0E314A), width: pressed ? 4.0 : 0.0),
+                          color: Color(0xff0E314A), width: pressed && _item == item['id_tipoavaliacao'] ? 0.0 : 4.0),
                       borderRadius: new BorderRadius.circular(5.0),
                     ),
                     child: MaterialButton(
@@ -170,15 +174,20 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                         borderRadius: new BorderRadius.circular(5.0),
                       ),
                       minWidth: 200.0,
-                      color: pressed ? (Colors.white) : (Colors.green),
-                      textColor: pressed ? (Color(0xff0E314A)) : (Colors.white),
+                      color: pressed && _item == item['id_tipoavaliacao'] ? (Colors.green) : (Colors.white),
+                      textColor: pressed && _item == item['id_tipoavaliacao'] ? (Colors.white) : (Color(0xff0E314A)),
                       child: Text(
                         item['descricao'],
                         style: TextStyle(fontSize: 18.0, letterSpacing: 2.0),
                         textAlign: TextAlign.center,
                       ),
                       onPressed: () {
+
+                        print('selecionado: $_item');
+                        print('item lista: $item');
+
                         setState(() {
+                          _item = item['id_tipoavaliacao'];
                           pressed = !pressed;
                         });
 
@@ -198,6 +207,7 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                   ),
             )
             .toList());
+
   }
 
   postRequestAvaliacao() async {
