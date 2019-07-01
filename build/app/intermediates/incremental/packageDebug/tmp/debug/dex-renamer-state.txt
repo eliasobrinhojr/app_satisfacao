@@ -1,4 +1,4 @@
-#Mon Jul 01 14:10:12 AMT 2019
+#Mon Jul 01 14:40:56 AMT 2019
 base.0=/home/sys00/Documentos/mobile/app_satisfacao/build/app/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex

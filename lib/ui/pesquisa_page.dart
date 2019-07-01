@@ -33,7 +33,7 @@ class _PesquisaPageState extends State<PesquisaPage>
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
     _getConfig();
     _controller = AnimationController(vsync: this);
     SystemChrome.setEnabledSystemUIOverlays([]);
@@ -133,10 +133,6 @@ class _PesquisaPageState extends State<PesquisaPage>
                                   avaliacaoBean.comentario = " ";
 
                                   postRequestAvaliacao();
-
-                                  Route route = MaterialPageRoute(
-                                      builder: (context) => ConcluidoPage());
-                                  Navigator.pushReplacement(context, route);
                                 });
                               },
                               splashColor: Colors.black,
@@ -207,6 +203,11 @@ class _PesquisaPageState extends State<PesquisaPage>
 
     int statusCode = response.statusCode;
     String responseBody = response.body;
+
+    if (statusCode == 200) {
+      Route route = MaterialPageRoute(builder: (context) => ConcluidoPage());
+      Navigator.pushReplacement(context, route);
+    }
   }
 
   void _getConfig() {
