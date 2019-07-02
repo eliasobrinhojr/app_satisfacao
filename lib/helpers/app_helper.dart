@@ -31,5 +31,7 @@ Future<Database> initDb() async {
         "CREATE TABLE $configTableName($idColumn INTEGER PRIMARY KEY, $ipColumn TEXT, $itemAvaliadoColumn TEXT);");
     await db.execute(
         "CREATE TABLE $tipoTableName($idTipoColumn INTEGER PRIMARY KEY, $idTipoAvaliacaoColumn TEXT, $tipoColumn TEXT, $descricaoColumn TEXT);");
+    await db.execute(
+        "CREATE TABLE $infoTableName($idInfoColumn INTEGER PRIMARY KEY, $filialColumn TEXT, $enderecoColumn TEXT, $numeroColumn TEXT, $bairroColumn TEXT);");
   });
 }

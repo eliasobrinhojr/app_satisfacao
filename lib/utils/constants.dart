@@ -9,3 +9,10 @@ const String idTipoAvaliacaoColumn = "idTipoAvaliacaoColumn";
 const String tipoColumn = "tipoColumn";
 const String descricaoColumn = "descricaoColumn";
 
+const String infoTableName = "informacaoTable";
+const String idInfoColumn = "IdInfoColumn";
+const String filialColumn = "filiaColumn";
+const String enderecoColumn = "enderecoColumn";
+const String numeroColumn = "numeroColumn";
+const String bairroColumn = "bairroColumn";
+

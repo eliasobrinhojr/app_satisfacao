@@ -3,7 +3,9 @@ import 'dart:io';
 
 import 'package:app_satisfacao/dao/config_dao.dart';
 import 'package:app_satisfacao/dao/tipo_dao.dart';
+import 'package:app_satisfacao/dao/info_dao.dart';
 import 'package:app_satisfacao/model/config_model.dart';
+import 'package:app_satisfacao/model/informacao_model.dart';
 import 'package:app_satisfacao/model/tipo_model.dart';
 import 'package:app_satisfacao/ui/pesquisa_page.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ConfigDao _configDao = ConfigDao();
   TipoDao _tipoDao = TipoDao();
+  InfoDao _infoDao = InfoDao();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController ipTextController = TextEditingController();
   ConfigModel _configBean = ConfigModel();
@@ -168,8 +171,9 @@ class _HomePageState extends State<HomePage> {
 
         _configDao.saveConfig(_configBean).then((resp) async {
           if (await getTipos(resp.ip)) {
-            _showPesquisaPage();
+              _showPesquisaPage();
           } else {
+            _infoDao.deleteAll();
             _configDao.deleteAll();
             Future.delayed(const Duration(milliseconds: 3000), () {
               pr.hide();
@@ -214,7 +218,7 @@ class _HomePageState extends State<HomePage> {
         // Decode the json response
         var list = json.decode(jsonObj);
 
-        for (var item in list) {
+        for (var item in list['tipo_avaliacao']) {
           TipoModel tipo = TipoModel();
           tipo.idTipo = item['id_tipoavaliacao'];
           tipo.tipo = item['tipo'];
@@ -223,6 +227,18 @@ class _HomePageState extends State<HomePage> {
             print('saveType');
           });
         }
+
+        for (var item in list['informacao_filial']) {
+          InformacaoModel info = InformacaoModel();
+          info.filial = item['codigo'];
+          info.endereco = item['endereco'];
+          info.numero = item['ender_numero'];
+          info.bairro = item['bairro'];
+          _infoDao.saveInfo(info).then((r) {
+            print('saveInfo');
+          });
+        }
+
         return true;
       } else {
         pr.update(message: "Falha na comunicação com o servidor");
