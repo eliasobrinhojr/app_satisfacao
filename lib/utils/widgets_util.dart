@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:app_satisfacao/dao/info_dao.dart';
 
 class WidgetsUtil {
+  InfoDao infoDao = InfoDao();
+
+  String filial = '', endereco = '', strInfo = '';
+
+  WidgetsUtil() {
+    infoDao.getInfo().then((value) {
+      if (value.length > 0) {
+        filial = value[0].filial;
+        endereco = value[0].endereco + ', ' + value[0].numero;
+        strInfo = 'Filial: $filial - $endereco';
+      }
+    });
+  }
+
   Widget getAppbar() {
     var assets = new AssetImage('lib/assets/ic_lojas.png');
     var image = new Image(image: assets, width: 130.0, height: 130.0);
@@ -25,16 +40,14 @@ class WidgetsUtil {
                 ),
               ),
               Padding(
-
                 padding: EdgeInsets.fromLTRB(10.0, 5.0, 0.0, 0.0),
                 child: Text(
-                  "Filial: 00 - Av. Silves, 885",
+                  strInfo,
                   style: TextStyle(fontSize: 15.0),
                 ),
               ),
             ],
           ),
-
         ],
       ),
       backgroundColor: Color(0xff0E314A),
@@ -47,7 +60,6 @@ class WidgetsUtil {
                 bottom: BorderSide(color: Color(0xffE14422), width: 3.0),
               ),
             ),
-
           )),
     );
   }
