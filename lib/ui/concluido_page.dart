@@ -16,7 +16,6 @@ class _ConcluidoPageState extends State<ConcluidoPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
 
