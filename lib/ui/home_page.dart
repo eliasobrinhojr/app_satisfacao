@@ -207,7 +207,9 @@ class _HomePageState extends State<HomePage> {
   getTipos(String ip) async {
     final String url = "http://" +
         ip +
-        "/service-satisfacao/index.php/satisfacaoAvaliacao/tipoController/listB";
+        "/pmz/service-satisfacao/index.php/satisfacaoAvaliacao/tipoController/listB";
+
+    print("url: $url");
     var httpClient = new HttpClient();
     try {
       // Make the call

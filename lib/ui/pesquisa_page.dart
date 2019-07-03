@@ -183,7 +183,7 @@ class _PesquisaPageState extends State<PesquisaPage>
   postRequestAvaliacao() async {
     final uri = "http://" +
         cfgBean.ip +
-        "/service-satisfacao/index.php/satisfacaoAvaliacao/avaliacaoController/save";
+        "/pmz/service-satisfacao/index.php/satisfacaoAvaliacao/avaliacaoController/save";
     final headers = {'Content-Type': 'application/json'};
     Map<String, dynamic> body = {
       'dtavaliacao': avaliacaoBean.dtavaliacao,

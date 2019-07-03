@@ -219,7 +219,7 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
     print('postRequestAvaliacao();');
     final uri = "http://" +
         cfgBean.ip +
-        "/service-satisfacao/index.php/satisfacaoAvaliacao/avaliacaoController/save";
+        "/pmz/service-satisfacao/index.php/satisfacaoAvaliacao/avaliacaoController/save";
     final headers = {'Content-Type': 'application/json'};
     Map<String, dynamic> body = {
       'dtavaliacao': avaliacaoBean.dtavaliacao,
@@ -245,7 +245,7 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
     return await http
         .get("http://" +
             ip +
-            "/service-satisfacao/index.php/satisfacaoAvaliacao/tipoController/listR")
+            "/pmz/service-satisfacao/index.php/satisfacaoAvaliacao/tipoController/listR")
         .then((result) {
       return result.body;
     });
