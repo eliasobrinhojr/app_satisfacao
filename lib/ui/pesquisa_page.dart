@@ -20,14 +20,12 @@ class PesquisaPage extends StatefulWidget {
 
 class _PesquisaPageState extends State<PesquisaPage>
     with SingleTickerProviderStateMixin {
-  WidgetsUtil widUtil = WidgetsUtil();
 
+  WidgetsUtil widUtil = WidgetsUtil();
   ConfigDao _cfgDao = ConfigDao();
   TipoDao _tipoDao = TipoDao();
   ConfigModel cfgBean = ConfigModel();
-
   AvaliacaoModel avaliacaoBean = AvaliacaoModel();
-
   AnimationController _controller;
 
   @override
