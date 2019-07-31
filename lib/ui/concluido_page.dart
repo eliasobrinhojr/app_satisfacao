@@ -28,7 +28,6 @@ class _ConcluidoPageState extends State<ConcluidoPage> {
   @override
   Widget build(BuildContext context) {
 
-
     var assetsImage = new AssetImage('lib/assets/ic_concluido.png');
     var image = new Image(image: assetsImage, width: 100.0, height: 100.0);
 

@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _configBean.itemAvaliado = null;
+    _configBean.itemAvaliado = "PMZ";
     BackButtonInterceptor.add(myInterceptor);
     SystemChrome.setEnabledSystemUIOverlays([]);
   }
@@ -104,35 +104,9 @@ class _HomePageState extends State<HomePage> {
                               _configBean.ip = value;
                             }
                           }),
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(20, 35.0, 0, 25.0),
-                            child: Text(
-                              'Item Avaliado',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontSize: 16.0),
-                            ),
-                          ),
-                        ],
-                      ),
-                      RadioButtonGroup(
-                        labelStyle: TextStyle(fontSize: 18.0),
-                        labels: [
-                          "Balcão de Vendas",
-                          "Caixa",
-                          "Balcão de Entregas"
-                        ],
-                        onChange: (String label, int index) {
-                          _configBean.itemAvaliado = label;
-                        },
-                        onSelected: (String label) {
-                          _configBean.itemAvaliado = label;
-                        },
-                      ),
+
+                      Divider(height: 25.0,),
+
                       Padding(
                         padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 50.0),
                         child: MaterialButton(
