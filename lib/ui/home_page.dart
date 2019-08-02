@@ -181,7 +181,7 @@ class _HomePageState extends State<HomePage> {
   getTipos(String ip) async {
     final String url = "http://" +
         ip +
-        "/pmz/service-satisfacao/index.php/satisfacaoAvaliacao/tipoController/listB";
+        "/pmz/service-satisfacao/index.php/satisfacaoAvaliacao/tipoController/tipoOtimoInfoFilial";
 
     print("url: $url");
     var httpClient = new HttpClient();
@@ -200,7 +200,7 @@ class _HomePageState extends State<HomePage> {
           tipo.tipo = item['tipo'];
           tipo.descricao = item['descricao'];
           _tipoDao.saveTipo(tipo).then((r) {
-            print('saveType');
+            print('save');
           });
         }
 

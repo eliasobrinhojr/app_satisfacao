@@ -1,15 +1,15 @@
 import 'dart:convert';
-import 'package:app_satisfacao/dao/tipo_dao.dart';
-import 'package:app_satisfacao/model/tipo_model.dart';
-import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:app_satisfacao/dao/config_dao.dart';
+import 'package:app_satisfacao/dao/tipo_dao.dart';
 import 'package:app_satisfacao/model/avaliacao_model.dart';
 import 'package:app_satisfacao/model/config_model.dart';
+import 'package:app_satisfacao/model/tipo_model.dart';
 import 'package:app_satisfacao/ui/concluido_page.dart';
-import 'package:app_satisfacao/ui/experiencia_page.dart';
-import 'package:flutter/material.dart';
 import 'package:app_satisfacao/utils/widgets_util.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 class PesquisaPage extends StatefulWidget {
   PesquisaPage();
@@ -20,13 +20,13 @@ class PesquisaPage extends StatefulWidget {
 
 class _PesquisaPageState extends State<PesquisaPage>
     with SingleTickerProviderStateMixin {
-
   WidgetsUtil widUtil = WidgetsUtil();
   ConfigDao _cfgDao = ConfigDao();
   TipoDao _tipoDao = TipoDao();
   ConfigModel cfgBean = ConfigModel();
   AvaliacaoModel avaliacaoBean = AvaliacaoModel();
   AnimationController _controller;
+  var _valueStar = 0;
 
   @override
   void initState() {
@@ -45,12 +45,6 @@ class _PesquisaPageState extends State<PesquisaPage>
 
   @override
   Widget build(BuildContext context) {
-    var assetsBom = new AssetImage('lib/assets/ic_bom.png');
-    var imageBom = new Image(image: assetsBom, width: 110.0, height: 110.0);
-
-    var assetsRuim = new AssetImage('lib/assets/ic_ruim.png');
-    var imageRuim = new Image(image: assetsRuim, width: 110.0, height: 110.0);
-
     var label = cfgBean.itemAvaliado;
 
     return Scaffold(
@@ -61,7 +55,7 @@ class _PesquisaPageState extends State<PesquisaPage>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(
-            "Como você avalia nosso atendimento\n no $label ?",
+            "Como você avalia o seu\natendimento?",
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 30.0, color: Color(0xff0E314A)),
           ),
@@ -73,8 +67,8 @@ class _PesquisaPageState extends State<PesquisaPage>
                 borderRadius: BorderRadius.all(
                     Radius.circular(5.0) //         <--- border radius here
                     )),
-            width: 526.0,
-            height: 320.0,
+            width: 600.0,
+            height: 300.0,
             child: SingleChildScrollView(
               padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
               child: Column(
@@ -84,9 +78,9 @@ class _PesquisaPageState extends State<PesquisaPage>
                     children: <Widget>[
                       Padding(
                         padding:
-                            const EdgeInsets.fromLTRB(10.0, 50.0, 0.0, 60.0),
+                            const EdgeInsets.fromLTRB(10.0, 50.0, 0.0, 45.0),
                         child: Text(
-                          'Ficou satisfeito com a\n sua experiência na PMZ?',
+                          'Conte-nos um pouco sobre sua\nexperiência na $label',
                           textAlign: TextAlign.center,
                           maxLines: null,
                           style: TextStyle(
@@ -95,77 +89,40 @@ class _PesquisaPageState extends State<PesquisaPage>
                               fontSize: 28.0),
                         ),
                       ),
-                      Divider(),
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                              child: Padding(
-                            padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                            child: new MaterialButton(
-                              shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(5.0),
-                              ),
-                              height: 80.0,
-                              minWidth: 200.0,
-                              color: Color(0xff0E314A),
-                              textColor: Colors.white,
-                              child: Row(
-                                children: <Widget>[
-                                  new Container(child: imageBom),
-                                  Text(
-                                    "BOM",
-                                    style: TextStyle(
-                                        fontSize: 20.0, letterSpacing: 3.0),
-                                  )
-                                ],
-                              ),
-                              onPressed: () {
-                                avaliacaoBean.perfil = cfgBean.itemAvaliado;
+                      IconTheme(
+                        data: IconThemeData(
+                          color: Color(0xff0E314A),
+                          size: 100,
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: List.generate(5, (index) {
+                            return GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  if (index == 4) {
+                                    avaliacaoBean.perfil = cfgBean.itemAvaliado;
 
-                                _tipoDao.buscaTipo().then((resp) {
-                                  List<TipoModel> list = resp;
-                                  avaliacaoBean.tipoAvaliacao = list[0].idTipo;
-
-                                  avaliacaoBean.dtavaliacao =
-                                      new DateTime.now().toString();
-                                  avaliacaoBean.comentario = " ";
-
-                                  postRequestAvaliacao();
+                                    _tipoDao.buscaTipo().then((resp) {
+                                      TipoModel tipo = resp.first;
+                                      avaliacaoBean.tipoAvaliacao = tipo.idTipo;
+                                      avaliacaoBean.dtavaliacao =
+                                          new DateTime.now().toString();
+                                      avaliacaoBean.comentario = " ";
+                                      postRequestAvaliacao();
+                                    });
+                                  }
+                                  _valueStar = index + 1;
                                 });
                               },
-                              splashColor: Colors.black,
-                            ),
-                          )),
-                          Expanded(
-                              child: Padding(
-                            padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                            child: new MaterialButton(
-                              shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(5.0),
+                              child: Icon(
+                                index < _valueStar
+                                    ? Icons.star
+                                    : Icons.star_border,
                               ),
-                              height: 80.0,
-                              minWidth: 200.0,
-                              color: Color(0xff0E314A),
-                              textColor: Colors.white,
-                              child: Row(
-                                children: <Widget>[
-                                  new Container(child: imageRuim),
-                                  Text(
-                                    "RUIM",
-                                    style: TextStyle(
-                                        fontSize: 20.0, letterSpacing: 3.0),
-                                  )
-                                ],
-                              ),
-                              onPressed: () {
-                                Route route = MaterialPageRoute(
-                                    builder: (context) => ExperienciaPage());
-                                Navigator.pushReplacement(context, route);
-                              },
-                              splashColor: Colors.black,
-                            ),
-                          )),
-                        ],
+                            );
+                          }),
+                        ),
                       ),
                     ],
                   )
@@ -189,6 +146,7 @@ class _PesquisaPageState extends State<PesquisaPage>
       'perfil': avaliacaoBean.perfil,
       'comentario': avaliacaoBean.comentario
     };
+
     String jsonBody = json.encode(body);
     final encoding = Encoding.getByName('utf-8');
 
