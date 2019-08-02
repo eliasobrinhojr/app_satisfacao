@@ -6,6 +6,7 @@ import 'package:app_satisfacao/model/avaliacao_model.dart';
 import 'package:app_satisfacao/model/config_model.dart';
 import 'package:app_satisfacao/model/tipo_model.dart';
 import 'package:app_satisfacao/ui/concluido_page.dart';
+import 'package:app_satisfacao/ui/experiencia_page.dart';
 import 'package:app_satisfacao/utils/widgets_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -100,20 +101,27 @@ class _PesquisaPageState extends State<PesquisaPage>
                             return GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  if (index == 4) {
-                                    avaliacaoBean.perfil = cfgBean.itemAvaliado;
-
-                                    _tipoDao.buscaTipo().then((resp) {
-                                      TipoModel tipo = resp.first;
-                                      avaliacaoBean.tipoAvaliacao = tipo.idTipo;
-                                      avaliacaoBean.dtavaliacao =
-                                          new DateTime.now().toString();
-                                      avaliacaoBean.comentario = " ";
-                                      postRequestAvaliacao();
-                                    });
-                                  }
                                   _valueStar = index + 1;
                                 });
+
+                                if (index == 4) {
+                                  avaliacaoBean.perfil = cfgBean.itemAvaliado;
+
+                                  _tipoDao.buscaTipo().then((resp) {
+                                    TipoModel tipo = resp.first;
+                                    avaliacaoBean.tipoAvaliacao = tipo.idTipo;
+                                    avaliacaoBean.dtavaliacao =
+                                        new DateTime.now().toString();
+                                    avaliacaoBean.comentario = " ";
+                                    postRequestAvaliacao();
+                                  });
+                                } else {
+                                  index++;
+                                  Route route = MaterialPageRoute(
+                                      builder: (context) =>
+                                          ExperienciaPage(index));
+                                  Navigator.pushReplacement(context, route);
+                                }
                               },
                               child: Icon(
                                 index < _valueStar
