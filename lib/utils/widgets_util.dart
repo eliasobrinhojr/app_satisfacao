@@ -9,8 +9,8 @@ class WidgetsUtil {
   WidgetsUtil() {
     infoDao.getInfo().then((value) {
       if (value.length > 0) {
-        filial = value[0].filial;
-        endereco = value[0].endereco + ', ' + value[0].numero;
+        filial = value.first.filial;
+        endereco = value.first.endereco + ', ' + value.first.numero;
         strInfo = 'Filial: $filial - $endereco';
       }
     });

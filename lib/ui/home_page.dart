@@ -2,17 +2,16 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:app_satisfacao/dao/config_dao.dart';
-import 'package:app_satisfacao/dao/tipo_dao.dart';
 import 'package:app_satisfacao/dao/info_dao.dart';
+import 'package:app_satisfacao/dao/tipo_dao.dart';
 import 'package:app_satisfacao/model/config_model.dart';
 import 'package:app_satisfacao/model/informacao_model.dart';
 import 'package:app_satisfacao/model/tipo_model.dart';
 import 'package:app_satisfacao/ui/pesquisa_page.dart';
+import 'package:app_satisfacao/utils/widgets_util.dart';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:back_button_interceptor/back_button_interceptor.dart';
-import 'package:grouped_buttons/grouped_buttons.dart';
-import 'package:app_satisfacao/utils/widgets_util.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 class HomePage extends StatefulWidget {
@@ -104,9 +103,9 @@ class _HomePageState extends State<HomePage> {
                               _configBean.ip = value;
                             }
                           }),
-
-                      Divider(height: 25.0,),
-
+                      Divider(
+                        height: 25.0,
+                      ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 50.0),
                         child: MaterialButton(
@@ -145,7 +144,7 @@ class _HomePageState extends State<HomePage> {
 
         _configDao.saveConfig(_configBean).then((resp) async {
           if (await getTipos(resp.ip)) {
-              _showPesquisaPage();
+            _showPesquisaPage();
           } else {
             _infoDao.deleteAll();
             _configDao.deleteAll();

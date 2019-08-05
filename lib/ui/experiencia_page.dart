@@ -11,12 +11,20 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 class ExperienciaPage extends StatefulWidget {
+  var _tipoAvaliacao;
+
+  ExperienciaPage(this._tipoAvaliacao);
+
   @override
-  _ExperienciaPageState createState() => _ExperienciaPageState();
+  _ExperienciaPageState createState() => _ExperienciaPageState(_tipoAvaliacao);
 }
 
 class _ExperienciaPageState extends State<ExperienciaPage> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  var _tipoAvaliacao;
+
+  _ExperienciaPageState(this._tipoAvaliacao);
 
   WidgetsUtil widUtil = WidgetsUtil();
 
@@ -48,7 +56,7 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
               case ConnectionState.waiting:
-              // return new Container();
+              //   return new Container();
 //                return Center(
 //                  child: Text('Carregando Dados..',
 //                      style:
@@ -57,17 +65,27 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
 //                );
               default:
                 if (snapshot.hasError) {
-                  return new Container();
-//                  return Center(
-//                    child: Text(
-//                        'Erro ao Carregar Dados\n verificar {$cfgBean.ip}',
-//                        style:
-//                            TextStyle(color: Color(0xff0E314A), fontSize: 25.0),
-//                        textAlign: TextAlign.center),
-//                  );
+                  // return new Container();
+                  return Center(
+                    child: Text(
+                        'Erro ao Carregar Dados\n verificar {$cfgBean.ip}',
+                        style:
+                            TextStyle(color: Color(0xff0E314A), fontSize: 25.0),
+                        textAlign: TextAlign.center),
+                  );
                 } else {
                   if (snapshot.data != null) {
                     List<dynamic> lista = json.decode(snapshot.data);
+
+                    var coluna1 = lista
+                        .where((item) =>
+                            item['descricao'].contains('Vendedor') ||
+                            item['descricao'].contains('Outros'))
+                        .toList();
+
+                    var coluna2 = lista
+                        .where((item) => item['descricao'].contains('Caixa'))
+                        .toList();
 
                     return Center(
                         child: Column(
@@ -86,8 +104,8 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                           ),
                         ),
                         Container(
-                          margin: const EdgeInsets.fromLTRB(
-                              250.0, 10.0, 250.0, 0.0),
+                          margin:
+                              const EdgeInsets.fromLTRB(90.0, 10.0, 90.0, 0.0),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               border: Border.all(color: Colors.grey),
@@ -100,18 +118,31 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: <Widget>[
-                                  getTextWidgets(lista),
+                                  Container(
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          flex: 2,
+                                          child: getContainer(coluna1),
+                                        ),
+                                        Expanded(
+                                          flex: 2,
+                                          child: getContainer(coluna2),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                   Divider(),
                                   Padding(
                                     padding: EdgeInsets.fromLTRB(
-                                        150.0, 10.0, 150.0, 0.0),
+                                        250.0, 10.0, 250.0, 0.0),
                                     child: new MaterialButton(
                                       shape: new RoundedRectangleBorder(
                                         borderRadius:
                                             new BorderRadius.circular(5.0),
                                       ),
-                                      height: 65.0,
-                                      minWidth: 100.0,
+                                      height: 80.0,
+                                      minWidth: 200.0,
                                       color: Color(0xff0E314A),
                                       textColor: Colors.white,
                                       child: new Text(
@@ -153,14 +184,14 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
     );
   }
 
-  Widget getTextWidgets(List<dynamic> list) {
+  Widget getContainer(List<dynamic> list) {
     return new Column(
         children: list
             .map(
               (item) => new Container(
-                margin: EdgeInsets.all(10.0),
-                width: 450.0,
-                height: 60.0,
+                margin: EdgeInsets.all(5.0),
+                width: 350.0,
+                height: 50.0,
                 decoration: new BoxDecoration(
                   color: Colors.white,
                   border: new Border.all(
@@ -215,7 +246,6 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
   }
 
   postRequestAvaliacao() async {
-    print('postRequestAvaliacao();');
     final uri = "http://" +
         cfgBean.ip +
         "/pmz/service-satisfacao/index.php/satisfacaoAvaliacao/avaliacaoController/save";
@@ -242,9 +272,8 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
 
   Future<String> getData(String ip) async {
     return await http
-        .get("http://" +
-            ip +
-            "/pmz/service-satisfacao/index.php/satisfacaoAvaliacao/tipoController/listR")
+        .get(
+            "http://$ip/pmz/service-satisfacao/index.php/satisfacaoAvaliacao/tipoController/listaPorTipo?tipo=$_tipoAvaliacao")
         .then((result) {
       return result.body;
     });
