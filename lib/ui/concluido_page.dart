@@ -1,4 +1,5 @@
 import 'package:app_satisfacao/ui/pesquisa_page.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:app_satisfacao/utils/widgets_util.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +10,6 @@ class ConcluidoPage extends StatefulWidget {
 }
 
 class _ConcluidoPageState extends State<ConcluidoPage> {
-
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   WidgetsUtil widUtil = WidgetsUtil();
@@ -19,59 +19,45 @@ class _ConcluidoPageState extends State<ConcluidoPage> {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
 
-    Future.delayed(const Duration(milliseconds: 1500), () {
-      Route route = MaterialPageRoute(builder: (context) => PesquisaPage());
-      Navigator.pushReplacement(context, route);
-    });
+//    Future.delayed(const Duration(milliseconds: 1500), () {
+//      Route route = MaterialPageRoute(builder: (context) => PesquisaPage());
+//      Navigator.pushReplacement(context, route);
+//    });
   }
 
   @override
   Widget build(BuildContext context) {
-
-    var assetsImage = new AssetImage('lib/assets/ic_concluido.png');
-    var image = new Image(image: assetsImage, width: 100.0, height: 100.0);
+    var assetsImage = new AssetImage('lib/assets/check.png');
+    var image = new Image(image: assetsImage, width: 167.0, height: 167.0);
 
     return Scaffold(
       appBar: getAppbar(),
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xff4CAF50),
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(
-            "O Grupo PMZ Agradece a \nsua participação. Até a próxima!",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 30.0, color: Color(0xff0E314A)),
-          ),
           Container(
             margin: const EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 0.0),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.all(Radius.circular(5.0))),
-            width: 526.0,
-            height: 320.0,
             child: SingleChildScrollView(
               child: Form(
                 key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
+                    new Container(child: image),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15.0, 80.0, 0.0, 30.0),
                       child: Text(
-                        'Avaliação Concluída',
+                        'Muito obrigado,\n a PMZ agradece a preferência',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff0E314A),
-                            fontSize: 28.0),
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white,
+                            fontSize: 40.0),
                       ),
                     ),
-                    Divider(),
-                    new Container(child: image)
-
                   ],
                 ),
               ),

@@ -1,3 +1,4 @@
+import 'package:app_satisfacao/ui/concluido_page.dart';
 import 'package:app_satisfacao/ui/splash_page.dart';
 import 'package:app_satisfacao/ui/home_page.dart';
 import 'package:app_satisfacao/ui/pesquisa_page.dart';
@@ -21,7 +22,7 @@ void main() {
       home = PesquisaPage();
     }
 
-   // home = SplashPage();
+    //home = ConcluidoPage();
 
     runApp(MaterialApp(
       home: home,

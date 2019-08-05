@@ -46,7 +46,7 @@ class _PesquisaPageState extends State<PesquisaPage>
 
   @override
   Widget build(BuildContext context) {
-    var label = cfgBean.itemAvaliado;
+    var label = cfgBean != null ? cfgBean.itemAvaliado : "PMZ";
 
     return Scaffold(
       appBar: widUtil.getAppbar(),
@@ -148,6 +148,7 @@ class _PesquisaPageState extends State<PesquisaPage>
         cfgBean.ip +
         "/pmz/service-satisfacao/index.php/satisfacaoAvaliacao/avaliacaoController/save";
     final headers = {'Content-Type': 'application/json'};
+
     Map<String, dynamic> body = {
       'dtavaliacao': avaliacaoBean.dtavaliacao,
       'tipoAvaliacao': avaliacaoBean.tipoAvaliacao,

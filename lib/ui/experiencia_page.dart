@@ -229,12 +229,10 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                       });
                     });
 
-                    dynamic res = list
-                        .where((l) => l['descricao'] == item['descricao'])
-                        .toList();
+                    dynamic res = list.where((l) => l['descricao'] == item['descricao']).toList().first;
 
                     avaliacaoBean.perfil = cfgBean.itemAvaliado;
-                    avaliacaoBean.tipoAvaliacao = res[0]['id_tipoavaliacao'];
+                    avaliacaoBean.tipoAvaliacao = res['id_tipoavaliacao'];
                     avaliacaoBean.dtavaliacao = new DateTime.now().toString();
                     avaliacaoBean.comentario = " ";
                   },
