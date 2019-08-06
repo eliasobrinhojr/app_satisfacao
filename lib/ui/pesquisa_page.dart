@@ -58,7 +58,7 @@ class _PesquisaPageState extends State<PesquisaPage>
           Text(
             "Como você avalia o seu\natendimento?",
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 30.0, color: Color(0xff0E314A)),
+            style: TextStyle(fontSize: 40.0, color: Color(0xff0E314A)),
           ),
           Container(
             margin: const EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0.0),
@@ -66,10 +66,10 @@ class _PesquisaPageState extends State<PesquisaPage>
                 color: Colors.white,
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.all(
-                    Radius.circular(5.0) //         <--- border radius here
+                    Radius.circular(8.0) //         <--- border radius here
                     )),
-            width: 600.0,
-            height: 300.0,
+            width: 700.0,
+            height: 350.0,
             child: SingleChildScrollView(
               padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
               child: Column(
@@ -112,7 +112,8 @@ class _PesquisaPageState extends State<PesquisaPage>
                                     avaliacaoBean.tipoAvaliacao = tipo.idTipo;
                                     avaliacaoBean.dtavaliacao =
                                         new DateTime.now().toString();
-                                    avaliacaoBean.comentario = " ";
+                                    avaliacaoBean.comentario = "";
+
                                     postRequestAvaliacao();
                                   });
                                 } else {

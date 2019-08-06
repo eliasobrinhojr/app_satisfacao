@@ -19,10 +19,10 @@ class _ConcluidoPageState extends State<ConcluidoPage> {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
 
-//    Future.delayed(const Duration(milliseconds: 1500), () {
-//      Route route = MaterialPageRoute(builder: (context) => PesquisaPage());
-//      Navigator.pushReplacement(context, route);
-//    });
+    Future.delayed(const Duration(milliseconds: 1500), () {
+      Route route = MaterialPageRoute(builder: (context) => PesquisaPage());
+      Navigator.pushReplacement(context, route);
+    });
   }
 
   @override
@@ -48,12 +48,11 @@ class _ConcluidoPageState extends State<ConcluidoPage> {
                   children: <Widget>[
                     new Container(child: image),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(15.0, 80.0, 0.0, 30.0),
+                      padding: const EdgeInsets.fromLTRB(15.0, 50.0, 0.0, 30.0),
                       child: Text(
                         'Muito obrigado,\n a PMZ agradece a preferência',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontWeight: FontWeight.normal,
                             color: Colors.white,
                             fontSize: 40.0),
                       ),

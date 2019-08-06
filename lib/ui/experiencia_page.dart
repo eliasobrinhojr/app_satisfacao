@@ -95,42 +95,40 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                         Padding(
                           padding: EdgeInsets.fromLTRB(32.0, 10.0, 32.0, 0.0),
                           child: Text(
-                            "O que ocasionou sua experiência negativa\n no $label ?",
+                            "Em que você acha que podemos melhorar?\nSua opinião é muito importante para nós da $label",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 30.0,
+                              fontSize: 35.0,
                               color: Color(0xff0E314A),
                             ),
                           ),
                         ),
                         Container(
                           margin:
-                              const EdgeInsets.fromLTRB(90.0, 10.0, 90.0, 0.0),
+                              const EdgeInsets.fromLTRB(50.0, 20.0, 50.0, 0.0),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               border: Border.all(color: Colors.grey),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0))),
+                                  BorderRadius.all(Radius.circular(8.0))),
                           child: SingleChildScrollView(
                             padding: EdgeInsets.all(10.0),
                             child: Form(
                               key: _formKey,
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Container(
-                                    child: Row(
+                                    margin: EdgeInsets.only(left: 60.0, top: 10.0),
+                                    child: Center(
+                                        child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        Expanded(
-                                          flex: 2,
-                                          child: getContainer(coluna1),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: getContainer(coluna2),
-                                        ),
+                                        getContainer(coluna1),
+                                        getContainer(coluna2)
                                       ],
-                                    ),
+                                    )),
                                   ),
                                   Divider(),
                                   Padding(
@@ -186,12 +184,13 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
 
   Widget getContainer(List<dynamic> list) {
     return new Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: list
             .map(
               (item) => new Container(
                 margin: EdgeInsets.all(5.0),
                 width: 350.0,
-                height: 50.0,
+                height: 65.0,
                 decoration: new BoxDecoration(
                   color: Colors.white,
                   border: new Border.all(
@@ -214,7 +213,7 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                       : (Color(0xff0E314A)),
                   child: Text(
                     item['descricao'],
-                    style: TextStyle(fontSize: 18.0, letterSpacing: 2.0),
+                    style: TextStyle(fontSize: 20.0, letterSpacing: 2.0),
                     textAlign: TextAlign.center,
                   ),
                   onPressed: () {
@@ -229,12 +228,15 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                       });
                     });
 
-                    dynamic res = list.where((l) => l['descricao'] == item['descricao']).toList().first;
+                    dynamic res = list
+                        .where((l) => l['descricao'] == item['descricao'])
+                        .toList()
+                        .first;
 
                     avaliacaoBean.perfil = cfgBean.itemAvaliado;
                     avaliacaoBean.tipoAvaliacao = res['id_tipoavaliacao'];
                     avaliacaoBean.dtavaliacao = new DateTime.now().toString();
-                    avaliacaoBean.comentario = " ";
+                    avaliacaoBean.comentario = "";
                   },
                   splashColor: Color(0xff2CA25F),
                 ),
