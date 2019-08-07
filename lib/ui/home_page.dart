@@ -97,11 +97,10 @@ class _HomePageState extends State<HomePage> {
                               color: Color(0xff0E314A), fontSize: 15.0),
                           controller: ipTextController,
                           validator: (value) {
-                            if (value.isEmpty) {
+                            if (value.isEmpty)
                               return "Insira um Endereço !";
-                            } else {
+                            else
                               _configBean.ip = value;
-                            }
                           }),
                       Divider(
                         height: 25.0,

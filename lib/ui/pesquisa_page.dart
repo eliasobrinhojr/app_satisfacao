@@ -5,6 +5,7 @@ import 'package:app_satisfacao/dao/tipo_dao.dart';
 import 'package:app_satisfacao/model/avaliacao_model.dart';
 import 'package:app_satisfacao/model/config_model.dart';
 import 'package:app_satisfacao/model/tipo_model.dart';
+import 'package:app_satisfacao/service/avaliacao_service.dart';
 import 'package:app_satisfacao/ui/concluido_page.dart';
 import 'package:app_satisfacao/ui/experiencia_page.dart';
 import 'package:app_satisfacao/utils/widgets_util.dart';
@@ -28,6 +29,7 @@ class _PesquisaPageState extends State<PesquisaPage>
   AvaliacaoModel avaliacaoBean = AvaliacaoModel();
   AnimationController _controller;
   var _valueStar = 0;
+  AvaliacaoService service = AvaliacaoService();
 
   @override
   void initState() {
@@ -56,7 +58,7 @@ class _PesquisaPageState extends State<PesquisaPage>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(
-            "Como você avalia o seu\natendimento?",
+            "Avaliação de Atendimento",
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 40.0, color: Color(0xff0E314A)),
           ),
@@ -81,7 +83,7 @@ class _PesquisaPageState extends State<PesquisaPage>
                         padding:
                             const EdgeInsets.fromLTRB(10.0, 50.0, 0.0, 45.0),
                         child: Text(
-                          'Conte-nos um pouco sobre sua\nexperiência na $label',
+                          'Como avalia sua \nexperiência na $label ?',
                           textAlign: TextAlign.center,
                           maxLines: null,
                           style: TextStyle(
@@ -113,8 +115,8 @@ class _PesquisaPageState extends State<PesquisaPage>
                                     avaliacaoBean.dtavaliacao =
                                         new DateTime.now().toString();
                                     avaliacaoBean.comentario = "";
-
-                                    postRequestAvaliacao();
+                                    service.postRequestAvaliacao(
+                                        cfgBean.ip, avaliacaoBean, context);
                                   });
                                 } else {
                                   Future.delayed(
@@ -145,38 +147,6 @@ class _PesquisaPageState extends State<PesquisaPage>
         ],
       )),
     );
-  }
-
-  postRequestAvaliacao() async {
-    final uri = "http://" +
-        cfgBean.ip +
-        "/pmz/service-satisfacao/index.php/satisfacaoAvaliacao/avaliacaoController/save";
-    final headers = {'Content-Type': 'application/json'};
-
-    Map<String, dynamic> body = {
-      'dtavaliacao': avaliacaoBean.dtavaliacao,
-      'tipoAvaliacao': avaliacaoBean.tipoAvaliacao,
-      'perfil': avaliacaoBean.perfil,
-      'comentario': avaliacaoBean.comentario
-    };
-
-    String jsonBody = json.encode(body);
-    final encoding = Encoding.getByName('utf-8');
-
-    http.Response response = await http.post(
-      uri,
-      headers: headers,
-      body: jsonBody,
-      encoding: encoding,
-    );
-
-    int statusCode = response.statusCode;
-    String responseBody = response.body;
-
-    if (statusCode == 200) {
-      Route route = MaterialPageRoute(builder: (context) => ConcluidoPage());
-      Navigator.pushReplacement(context, route);
-    }
   }
 
   void _getConfig() {

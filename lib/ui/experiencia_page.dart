@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:app_satisfacao/dao/config_dao.dart';
 import 'package:app_satisfacao/model/avaliacao_model.dart';
 import 'package:app_satisfacao/model/config_model.dart';
+import 'package:app_satisfacao/service/avaliacao_service.dart';
 import 'package:app_satisfacao/ui/concluido_page.dart';
 import 'package:app_satisfacao/utils/widgets_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 
 class ExperienciaPage extends StatefulWidget {
   var _tipoAvaliacao;
@@ -33,6 +32,8 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
 
   AvaliacaoModel avaliacaoBean = AvaliacaoModel();
 
+  AvaliacaoService service = AvaliacaoService();
+
   bool pressed = false;
   String _item = '';
 
@@ -51,34 +52,19 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
       appBar: widUtil.getAppbar(),
       backgroundColor: Colors.white,
       body: FutureBuilder<String>(
-          future: getData(cfgBean.ip),
+          future: service.getListaPorTipo(cfgBean.ip, _tipoAvaliacao),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
               case ConnectionState.waiting:
-              //   return new Container();
-//                return Center(
-//                  child: Text('Carregando Dados..',
-//                      style:
-//                      TextStyle(color: Color(0xff0E314A), fontSize: 25.0),
-//                      textAlign: TextAlign.center),
-//                );
               default:
-                if (snapshot.hasError) {
-                  // return new Container();
-                  return Center(
-                    child: Text(
-                        'Erro ao Carregar Dados\n verificar {$cfgBean.ip}',
-                        style:
-                            TextStyle(color: Color(0xff0E314A), fontSize: 25.0),
-                        textAlign: TextAlign.center),
-                  );
-                } else {
+                if (!snapshot.hasError) {
                   if (snapshot.data != null) {
-                    List<dynamic> lista = json.decode(snapshot.data);
-                    List<dynamic> coluna1 = List(), coluna2 = List();
+                    var lista = json.decode(snapshot.data);
+                    var coluna1 = List(), coluna2 = List();
 
-                    lista.asMap().forEach((i, value) => i < 3 ? coluna1.add(value) : coluna2.add(value));
+                    lista.asMap().forEach((i, value) =>
+                        i < 3 ? coluna1.add(value) : coluna2.add(value));
 
                     return Center(
                         child: Column(
@@ -88,7 +74,7 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                         Padding(
                           padding: EdgeInsets.fromLTRB(32.0, 10.0, 32.0, 0.0),
                           child: Text(
-                            "Em que você acha que podemos melhorar?\nSua opinião é muito importante para nós da $label",
+                            "Como podemos melhorar?",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 35.0,
@@ -98,7 +84,7 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                         ),
                         Container(
                           margin:
-                              const EdgeInsets.fromLTRB(50.0, 20.0, 50.0, 0.0),
+                              const EdgeInsets.fromLTRB(70.0, 20.0, 50.0, 0.0),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               border: Border.all(color: Colors.grey),
@@ -146,13 +132,10 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                                       onPressed: () {
                                         if (avaliacaoBean.tipoAvaliacao !=
                                             null) {
-                                          postRequestAvaliacao();
-
-                                          Route route = MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ConcluidoPage());
-                                          Navigator.pushReplacement(
-                                              context, route);
+                                          service.postRequestAvaliacao(
+                                              cfgBean.ip,
+                                              avaliacaoBean,
+                                              context);
                                         } else {
                                           _ackAlert(context);
                                         }
@@ -168,8 +151,28 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                       ],
                     ));
                   } else {
-                    return new Container();
+                    return Center(
+                      child: Text('Erro ao carregar TipoAvaliacao ',
+                          style: TextStyle(
+                              color: Color(0xff0E314A), fontSize: 25.0),
+                          textAlign: TextAlign.center),
+                    );
                   }
+                } else {
+                  return Container();
+                  //                  return Container();
+//                  var ip = cfgBean.ip;
+//                  print(ip);
+//
+//                  // return new Container();
+//                  //SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+//
+                  return Center(
+                    child: Text('Erro ao Carregar Dados\n verificar wifi',
+                        style:
+                            TextStyle(color: Color(0xff0E314A), fontSize: 25.0),
+                        textAlign: TextAlign.center),
+                  );
                 }
             }
           }),
@@ -223,7 +226,7 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                         });
                       });
 
-                      dynamic res = list
+                      var res = list
                           .where((l) => l['descricao'] == item['descricao'])
                           .toList()
                           .first;
@@ -240,40 +243,6 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
               .toList());
     } else
       return Container();
-  }
-
-  postRequestAvaliacao() async {
-    final uri = "http://" +
-        cfgBean.ip +
-        "/pmz/service-satisfacao/index.php/satisfacaoAvaliacao/avaliacaoController/save";
-    final headers = {'Content-Type': 'application/json'};
-    Map<String, dynamic> body = {
-      'dtavaliacao': avaliacaoBean.dtavaliacao,
-      'tipoAvaliacao': avaliacaoBean.tipoAvaliacao,
-      'perfil': avaliacaoBean.perfil,
-      'comentario': avaliacaoBean.comentario
-    };
-    String jsonBody = json.encode(body);
-    final encoding = Encoding.getByName('utf-8');
-
-    http.Response response = await http.post(
-      uri,
-      headers: headers,
-      body: jsonBody,
-      encoding: encoding,
-    );
-
-    int statusCode = response.statusCode;
-    String responseBody = response.body;
-  }
-
-  Future<String> getData(String ip) async {
-    return await http
-        .get(
-            "http://$ip/pmz/service-satisfacao/index.php/satisfacaoAvaliacao/tipoController/listaPorTipo?tipo=$_tipoAvaliacao")
-        .then((result) {
-      return result.body;
-    });
   }
 
   void _getConfig() {
