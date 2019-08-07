@@ -151,28 +151,10 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                       ],
                     ));
                   } else {
-                    return Center(
-                      child: Text('Erro ao carregar TipoAvaliacao ',
-                          style: TextStyle(
-                              color: Color(0xff0E314A), fontSize: 25.0),
-                          textAlign: TextAlign.center),
-                    );
+                    return new Container();
                   }
                 } else {
-                  return Container();
-                  //                  return Container();
-//                  var ip = cfgBean.ip;
-//                  print(ip);
-//
-//                  // return new Container();
-//                  //SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-//
-                  return Center(
-                    child: Text('Erro ao Carregar Dados\n verificar wifi',
-                        style:
-                            TextStyle(color: Color(0xff0E314A), fontSize: 25.0),
-                        textAlign: TextAlign.center),
-                  );
+                  return new Container();
                 }
             }
           }),
