@@ -117,11 +117,14 @@ class _PesquisaPageState extends State<PesquisaPage>
                                     postRequestAvaliacao();
                                   });
                                 } else {
-                                  index++;
-                                  Route route = MaterialPageRoute(
-                                      builder: (context) =>
-                                          ExperienciaPage(index));
-                                  Navigator.pushReplacement(context, route);
+                                  Future.delayed(
+                                      const Duration(milliseconds: 200), () {
+                                    index++;
+                                    Route route = MaterialPageRoute(
+                                        builder: (context) =>
+                                            ExperienciaPage(index));
+                                    Navigator.pushReplacement(context, route);
+                                  });
                                 }
                               },
                               child: Icon(

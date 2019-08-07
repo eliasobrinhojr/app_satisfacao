@@ -76,16 +76,9 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                 } else {
                   if (snapshot.data != null) {
                     List<dynamic> lista = json.decode(snapshot.data);
+                    List<dynamic> coluna1 = List(), coluna2 = List();
 
-                    var coluna1 = lista
-                        .where((item) =>
-                            item['descricao'].contains('Vendedor') ||
-                            item['descricao'].contains('Outros'))
-                        .toList();
-
-                    var coluna2 = lista
-                        .where((item) => item['descricao'].contains('Caixa'))
-                        .toList();
+                    lista.asMap().forEach((i, value) => i < 3 ? coluna1.add(value) : coluna2.add(value));
 
                     return Center(
                         child: Column(
@@ -119,7 +112,8 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Container(
-                                    margin: EdgeInsets.only(left: 60.0, top: 10.0),
+                                    margin:
+                                        EdgeInsets.only(left: 60.0, top: 10.0),
                                     child: Center(
                                         child: Row(
                                       crossAxisAlignment:
@@ -183,66 +177,69 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
   }
 
   Widget getContainer(List<dynamic> list) {
-    return new Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: list
-            .map(
-              (item) => new Container(
-                margin: EdgeInsets.all(5.0),
-                width: 350.0,
-                height: 65.0,
-                decoration: new BoxDecoration(
-                  color: Colors.white,
-                  border: new Border.all(
-                      color: Color(0xff0E314A),
-                      width: pressed && _item == item['id_tipoavaliacao']
-                          ? 0.0
-                          : 4.0),
-                  borderRadius: new BorderRadius.circular(5.0),
-                ),
-                child: MaterialButton(
-                  shape: new RoundedRectangleBorder(
+    if (list != null) {
+      return new Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: list
+              .map(
+                (item) => new Container(
+                  margin: EdgeInsets.all(5.0),
+                  width: 350.0,
+                  height: 65.0,
+                  decoration: new BoxDecoration(
+                    color: Colors.white,
+                    border: new Border.all(
+                        color: Color(0xff0E314A),
+                        width: pressed && _item == item['id_tipoavaliacao']
+                            ? 0.0
+                            : 4.0),
                     borderRadius: new BorderRadius.circular(5.0),
                   ),
-                  minWidth: 200.0,
-                  color: pressed && _item == item['id_tipoavaliacao']
-                      ? (Colors.green)
-                      : (Colors.white),
-                  textColor: pressed && _item == item['id_tipoavaliacao']
-                      ? (Colors.white)
-                      : (Color(0xff0E314A)),
-                  child: Text(
-                    item['descricao'],
-                    style: TextStyle(fontSize: 20.0, letterSpacing: 2.0),
-                    textAlign: TextAlign.center,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      pressed = false;
-                    });
-
-                    Future.delayed(const Duration(milliseconds: 100), () {
+                  child: MaterialButton(
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(5.0),
+                    ),
+                    minWidth: 200.0,
+                    color: pressed && _item == item['id_tipoavaliacao']
+                        ? (Colors.green)
+                        : (Colors.white),
+                    textColor: pressed && _item == item['id_tipoavaliacao']
+                        ? (Colors.white)
+                        : (Color(0xff0E314A)),
+                    child: Text(
+                      item['descricao'],
+                      style: TextStyle(fontSize: 20.0, letterSpacing: 2.0),
+                      textAlign: TextAlign.center,
+                    ),
+                    onPressed: () {
                       setState(() {
-                        _item = item['id_tipoavaliacao'];
-                        pressed = true;
+                        pressed = false;
                       });
-                    });
 
-                    dynamic res = list
-                        .where((l) => l['descricao'] == item['descricao'])
-                        .toList()
-                        .first;
+                      Future.delayed(const Duration(milliseconds: 100), () {
+                        setState(() {
+                          _item = item['id_tipoavaliacao'];
+                          pressed = true;
+                        });
+                      });
 
-                    avaliacaoBean.perfil = cfgBean.itemAvaliado;
-                    avaliacaoBean.tipoAvaliacao = res['id_tipoavaliacao'];
-                    avaliacaoBean.dtavaliacao = new DateTime.now().toString();
-                    avaliacaoBean.comentario = "";
-                  },
-                  splashColor: Color(0xff2CA25F),
+                      dynamic res = list
+                          .where((l) => l['descricao'] == item['descricao'])
+                          .toList()
+                          .first;
+
+                      avaliacaoBean.perfil = cfgBean.itemAvaliado;
+                      avaliacaoBean.tipoAvaliacao = res['id_tipoavaliacao'];
+                      avaliacaoBean.dtavaliacao = new DateTime.now().toString();
+                      avaliacaoBean.comentario = "";
+                    },
+                    splashColor: Color(0xff2CA25F),
+                  ),
                 ),
-              ),
-            )
-            .toList());
+              )
+              .toList());
+    } else
+      return Container();
   }
 
   postRequestAvaliacao() async {
