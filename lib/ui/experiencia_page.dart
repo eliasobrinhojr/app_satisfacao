@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:app_satisfacao/dao/config_dao.dart';
 import 'package:app_satisfacao/model/avaliacao_model.dart';
 import 'package:app_satisfacao/model/config_model.dart';
 import 'package:app_satisfacao/service/avaliacao_service.dart';
-import 'package:app_satisfacao/ui/concluido_page.dart';
 import 'package:app_satisfacao/utils/widgets_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -208,13 +208,11 @@ class _ExperienciaPageState extends State<ExperienciaPage> {
                         });
                       });
 
-                      var res = list
+                      avaliacaoBean.perfil = cfgBean.itemAvaliado;
+                      avaliacaoBean.tipoAvaliacao = list
                           .where((l) => l['descricao'] == item['descricao'])
                           .toList()
-                          .first;
-
-                      avaliacaoBean.perfil = cfgBean.itemAvaliado;
-                      avaliacaoBean.tipoAvaliacao = res['id_tipoavaliacao'];
+                          .first['id_tipoavaliacao'];
                       avaliacaoBean.dtavaliacao = new DateTime.now().toString();
                       avaliacaoBean.comentario = "";
                     },
