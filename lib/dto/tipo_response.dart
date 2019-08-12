@@ -1,11 +1,9 @@
-
 class TipoResponse {
   int idtipoavaliacao;
   String tipo;
   String descricao;
 
   TipoResponse();
-
 
   @override
   String toString() {

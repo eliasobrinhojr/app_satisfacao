@@ -1,17 +1,13 @@
-import 'dart:convert';
-
 import 'package:app_satisfacao/dao/config_dao.dart';
 import 'package:app_satisfacao/dao/tipo_dao.dart';
 import 'package:app_satisfacao/model/avaliacao_model.dart';
 import 'package:app_satisfacao/model/config_model.dart';
 import 'package:app_satisfacao/model/tipo_model.dart';
 import 'package:app_satisfacao/service/avaliacao_service.dart';
-import 'package:app_satisfacao/ui/concluido_page.dart';
 import 'package:app_satisfacao/ui/experiencia_page.dart';
 import 'package:app_satisfacao/utils/widgets_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 
 class PesquisaPage extends StatefulWidget {
   PesquisaPage();

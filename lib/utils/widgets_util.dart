@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:app_satisfacao/dao/info_dao.dart';
+import 'package:flutter/material.dart';
 
 class WidgetsUtil {
   InfoDao infoDao = InfoDao();

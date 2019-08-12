@@ -1,7 +1,6 @@
 import 'package:app_satisfacao/ui/pesquisa_page.dart';
-import 'package:flare_flutter/flare_actor.dart';
-import 'package:flutter/material.dart';
 import 'package:app_satisfacao/utils/widgets_util.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ConcluidoPage extends StatefulWidget {
@@ -52,9 +51,7 @@ class _ConcluidoPageState extends State<ConcluidoPage> {
                       child: Text(
                         'Muito obrigado,\n a PMZ agradece a preferência',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 40.0),
+                        style: TextStyle(color: Colors.white, fontSize: 40.0),
                       ),
                     ),
                   ],

@@ -1,7 +1,7 @@
+import 'package:app_satisfacao/helpers/app_helper.dart';
 import 'package:app_satisfacao/model/informacao_model.dart';
 import 'package:app_satisfacao/utils/constants.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:app_satisfacao/helpers/app_helper.dart';
 
 class InfoDao {
   AppHelper helper = AppHelper();

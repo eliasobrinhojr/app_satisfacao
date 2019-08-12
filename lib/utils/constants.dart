@@ -15,4 +15,3 @@ const String filialColumn = "filiaColumn";
 const String enderecoColumn = "enderecoColumn";
 const String numeroColumn = "numeroColumn";
 const String bairroColumn = "bairroColumn";
-

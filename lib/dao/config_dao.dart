@@ -1,7 +1,7 @@
+import 'package:app_satisfacao/helpers/app_helper.dart';
 import 'package:app_satisfacao/model/config_model.dart';
 import 'package:app_satisfacao/utils/constants.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:app_satisfacao/helpers/app_helper.dart';
 
 class ConfigDao {
   AppHelper helper = AppHelper();
@@ -9,7 +9,7 @@ class ConfigDao {
   Future<ConfigModel> saveConfig(ConfigModel config) async {
     Database dbApp = await helper.db;
     config.id = await dbApp.insert(configTableName, config.toMap());
-  
+
     return config;
   }
 
@@ -20,7 +20,7 @@ class ConfigDao {
 
     if (maps.length > 0) {
       return ConfigModel.fromMap(maps.first);
-    } else {  
+    } else {
       return null;
     }
   }

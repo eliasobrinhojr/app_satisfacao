@@ -1,6 +1,6 @@
+import 'package:app_satisfacao/utils/constants.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:app_satisfacao/utils/constants.dart';
 
 class AppHelper {
   static final AppHelper _instance = AppHelper.internal();

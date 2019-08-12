@@ -1,8 +1,9 @@
+import 'dart:convert';
+
 import 'package:app_satisfacao/model/avaliacao_model.dart';
 import 'package:app_satisfacao/ui/concluido_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class AvaliacaoService {
   var headers;

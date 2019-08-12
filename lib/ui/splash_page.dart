@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -37,10 +37,7 @@ class _SplashPageState extends State<SplashPage>
             Container(
               child: image,
             ),
-            new DotsIndicator(
-                dotsCount: 5,
-                position: 3
-            )
+            new DotsIndicator(dotsCount: 5, position: 3)
           ],
         ),
       ),
